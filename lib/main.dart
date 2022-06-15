@@ -36,7 +36,9 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
         '/': (context) => const HomeView(),
-        '/note': (context) => const NoteView(),
+        '/note': (context) => const NoteView(
+              id: '',
+            ),
       },
       localizationsDelegates: context.localizationDelegates,
       supportedLocales: context.supportedLocales,
