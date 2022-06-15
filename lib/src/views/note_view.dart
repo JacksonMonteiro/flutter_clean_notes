@@ -5,9 +5,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class NoteView extends StatefulWidget {
-  final String id;
-
-  const NoteView({Key? key, required this.id}) : super(key: key);
+  const NoteView({Key? key}) : super(key: key);
 
   @override
   State<NoteView> createState() => _NoteViewState();
