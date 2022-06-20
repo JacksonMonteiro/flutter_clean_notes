@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:notes_app/src/views/note_view.dart';
 
@@ -13,14 +14,23 @@ class _HomeViewState extends State<HomeView> {
   TextEditingController titleController = TextEditingController();
   TextEditingController noteController = TextEditingController();
 
+  final _auth = FirebaseAuth.instance;
+
   final CollectionReference _noteRef =
       FirebaseFirestore.instance.collection('notes');
-  final Query _notes = FirebaseFirestore.instance
-      .collection('notes')
-      .orderBy('date', descending: true);
+
+  late Query _notes;
 
   @override
   Widget build(BuildContext context) {
+    User? user = _auth.currentUser;
+    final uid = user?.uid;
+
+    _notes = FirebaseFirestore.instance
+        .collection('notes')
+        .where('user_uid', isEqualTo: uid)
+        .orderBy('date', descending: true);
+
     return Scaffold(
       body: StreamBuilder(
           stream: _notes.snapshots(),

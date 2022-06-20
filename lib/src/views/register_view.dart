@@ -71,6 +71,7 @@ class _RegisterViewState extends State<RegisterView> {
                       hintText: 'Senha',
                     ),
                     controller: passwordController,
+                    obscureText: true,
                   ),
                   const SizedBox(height: 24),
                   ElevatedButton(

@@ -71,6 +71,7 @@ class _LoginViewState extends State<LoginView> {
                       hintText: 'Senha',
                     ),
                     controller: passwordController,
+                    obscureText: true,
                   ),
                   const SizedBox(height: 24),
                   ElevatedButton(
