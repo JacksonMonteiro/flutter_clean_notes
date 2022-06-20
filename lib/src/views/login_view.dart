@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -29,9 +30,9 @@ class _LoginViewState extends State<LoginView> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
-                    'Seja bem-vindo(a) ao Clean Notes. Insira seus dados para continuar',
-                    style: TextStyle(
+                  Text(
+                    'login.title'.tr(),
+                    style: const TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.bold,
                     ),
@@ -42,16 +43,16 @@ class _LoginViewState extends State<LoginView> {
                   TextField(
                     controller: usernameController,
                     cursorColor: const Color(0xffaff7ad),
-                    decoration: const InputDecoration(
-                      focusedBorder: OutlineInputBorder(
+                    decoration: InputDecoration(
+                      focusedBorder: const OutlineInputBorder(
                         borderSide: BorderSide(color: Color(0xffaff7ad)),
                         borderRadius: BorderRadius.all(Radius.circular(48)),
                       ),
-                      border: OutlineInputBorder(
+                      border: const OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.black),
                         borderRadius: BorderRadius.all(Radius.circular(48)),
                       ),
-                      hintText: 'E-mail',
+                      hintText: 'login.email'.tr(),
                     ),
                   ),
                   const SizedBox(
@@ -59,16 +60,16 @@ class _LoginViewState extends State<LoginView> {
                   ),
                   TextField(
                     cursorColor: const Color(0xffaff7ad),
-                    decoration: const InputDecoration(
-                      focusedBorder: OutlineInputBorder(
+                    decoration: InputDecoration(
+                      focusedBorder: const OutlineInputBorder(
                         borderSide: BorderSide(color: Color(0xffaff7ad)),
                         borderRadius: BorderRadius.all(Radius.circular(48)),
                       ),
-                      border: OutlineInputBorder(
+                      border: const OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.black),
                         borderRadius: BorderRadius.all(Radius.circular(48)),
                       ),
-                      hintText: 'Senha',
+                      hintText: 'login.password'.tr(),
                     ),
                     controller: passwordController,
                     obscureText: true,
@@ -83,10 +84,10 @@ class _LoginViewState extends State<LoginView> {
                             MaterialStateProperty.all(Colors.black)),
                     child: SizedBox(
                         width: MediaQuery.of(context).size.width,
-                        child: const Padding(
-                          padding: EdgeInsets.symmetric(vertical: 12),
-                          child: Text('Login',
-                              style: TextStyle(
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 12),
+                          child: Text('login.login-btn'.tr(),
+                              style: const TextStyle(
                                 color: Color(0xffaff7ad),
                                 fontSize: 18,
                               ),
@@ -112,10 +113,10 @@ class _LoginViewState extends State<LoginView> {
                     ),
                     child: SizedBox(
                         width: MediaQuery.of(context).size.width,
-                        child: const Padding(
-                          padding: EdgeInsets.symmetric(vertical: 12),
-                          child: Text('Criar conta',
-                              style: TextStyle(
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 12),
+                          child: Text('login.register-btn'.tr(),
+                              style: const TextStyle(
                                 color: Colors.black,
                                 fontSize: 18,
                               ),

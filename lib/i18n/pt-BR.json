@@ -1,3 +1,9 @@
 {
-    "hello": "Hello World"
+    "login": {
+        "title": "Seja bem-vindo(a) ao Clean Notes. Insira seus dados para continuar",
+        "email": "E-mail",
+        "password": "Senha",
+        "login-btn": "Login",
+        "register-btn": "Criar conta"
+    }
 }
