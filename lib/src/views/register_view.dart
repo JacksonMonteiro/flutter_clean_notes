@@ -4,14 +4,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:notes_app/src/views/note_view.dart';
 
-class LoginView extends StatefulWidget {
-  const LoginView({Key? key}) : super(key: key);
+class RegisterView extends StatefulWidget {
+  const RegisterView({Key? key}) : super(key: key);
 
   @override
-  State<LoginView> createState() => _LoginViewState();
+  State<RegisterView> createState() => _RegisterViewState();
 }
 
-class _LoginViewState extends State<LoginView> {
+class _RegisterViewState extends State<RegisterView> {
   TextEditingController usernameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   final _auth = FirebaseAuth.instance;
@@ -30,7 +30,7 @@ class _LoginViewState extends State<LoginView> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const Text(
-                    'Seja bem-vindo(a) ao Clean Notes. Insira seus dados para continuar',
+                    'Olá! Vejo que é novo por aqui. Para usar o App, basta criar uma conta, e pronto, já poderá começar a registrar seus pensamentos de maneira simples',
                     style: TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.bold,
@@ -75,7 +75,7 @@ class _LoginViewState extends State<LoginView> {
                   const SizedBox(height: 24),
                   ElevatedButton(
                     onPressed: () {
-                      login();
+                      register();
                     },
                     style: ButtonStyle(
                         backgroundColor:
@@ -84,7 +84,7 @@ class _LoginViewState extends State<LoginView> {
                         width: MediaQuery.of(context).size.width,
                         child: const Padding(
                           padding: EdgeInsets.symmetric(vertical: 12),
-                          child: Text('Login',
+                          child: Text('Criar conta',
                               style: TextStyle(
                                 color: Color(0xffaff7ad),
                                 fontSize: 18,
@@ -97,7 +97,7 @@ class _LoginViewState extends State<LoginView> {
                   ),
                   ElevatedButton(
                     onPressed: () {
-                      Navigator.of(context).pushNamed('/register');
+                      Navigator.of(context).pop();
                     },
                     style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all(
@@ -113,7 +113,7 @@ class _LoginViewState extends State<LoginView> {
                         width: MediaQuery.of(context).size.width,
                         child: const Padding(
                           padding: EdgeInsets.symmetric(vertical: 12),
-                          child: Text('Criar conta',
+                          child: Text('Voltar',
                               style: TextStyle(
                                 color: Colors.black,
                                 fontSize: 18,
@@ -128,25 +128,29 @@ class _LoginViewState extends State<LoginView> {
     );
   }
 
-  login() async {
+  register() async {
     try {
-      UserCredential userCredential = await _auth.signInWithEmailAndPassword(
-          email: usernameController.text, password: passwordController.text);
+      UserCredential userCredential =
+          await _auth.createUserWithEmailAndPassword(
+              email: usernameController.text,
+              password: passwordController.text);
 
       if (userCredential != null) {
-        Navigator.of(context).pushReplacementNamed('/home');
+        Navigator.of(context).pop();
       }
     } on FirebaseAuthException catch (e) {
-      if (e.code == 'user-not-found') {
+      if (e.code == 'weak-password') {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
-              content: Text('E-mail não encontrado no sistema'),
+              content:
+                  Text('Senha fraca, por favor, crie uma senha mais forte'),
               backgroundColor: Colors.redAccent),
         );
-      } else if (e.code == 'wrong-password') {
+      } else if (e.code == 'email-already-in-use') {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
-              content: Text('Email ou senha incorretos'),
+              content:
+                  Text('O E-mail já está sendo utilizado por outro usuário'),
               backgroundColor: Colors.redAccent),
         );
       }

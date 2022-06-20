@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:notes_app/src/views/home_view.dart';
 import 'package:notes_app/src/views/login_view.dart';
 import 'package:notes_app/src/views/note_view.dart';
+import 'package:notes_app/src/views/register_view.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -37,6 +38,7 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
         '/': (context) => const LoginView(),
+        '/register': (context) => const RegisterView(),
         '/home': (context) => const HomeView(),
         '/note': (context) => const NoteView(),
       },
