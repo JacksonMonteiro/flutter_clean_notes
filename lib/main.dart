@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:notes_app/src/views/home_view.dart';
+import 'package:notes_app/src/views/login_view.dart';
 import 'package:notes_app/src/views/note_view.dart';
 
 void main() async {
@@ -35,7 +36,8 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: '/',
       routes: {
-        '/': (context) => const HomeView(),
+        '/': (context) => const LoginView(),
+        '/home': (context) => const HomeView(),
         '/note': (context) => const NoteView(),
       },
       localizationsDelegates: context.localizationDelegates,
