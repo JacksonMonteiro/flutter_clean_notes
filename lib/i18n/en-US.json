@@ -13,7 +13,11 @@
     },
 
     "home": {
-        "exit": "Exit"
+        "exit": "Exit",
+        "switch-lang": "Switch Language",
+        "choose-lang": "Choose your language",
+        "ptBr": "Portuguese (Brazilian)",
+        "enUs": "English (United States)"
     },
 
     "note": {

@@ -62,7 +62,70 @@ class _HomeViewState extends State<HomeView> {
                                       color: Colors.red,
                                     ),
                                   ),
-                                )
+                                ),
+                                PopupMenuItem(
+                                  value: 1,
+                                  child: Text(
+                                    'home.switch-lang'.tr(),
+                                  ),
+                                  onTap: () {
+                                    Future.delayed(
+                                      const Duration(seconds: 0),
+                                      () => showDialog(
+                                          context: context,
+                                          builder: (context) {
+                                            return AlertDialog(
+                                              title:
+                                                  Text("home.choose-lang".tr()),
+                                              actions: [
+                                                SizedBox(
+                                                  width: MediaQuery.of(context)
+                                                      .size
+                                                      .width,
+                                                  child: Column(children: [
+                                                    SizedBox(
+                                                      width:
+                                                          MediaQuery.of(context)
+                                                              .size
+                                                              .width,
+                                                      child: ElevatedButton(
+                                                        onPressed: () {
+                                                          context.setLocale(
+                                                              const Locale(
+                                                                  'pt', 'BR'));
+                                                          Navigator.pop(
+                                                              context);
+                                                        },
+                                                        child: Text(
+                                                            'home.ptBr'.tr()),
+                                                      ),
+                                                    ),
+                                                    const SizedBox(width: 20),
+                                                    SizedBox(
+                                                      width:
+                                                          MediaQuery.of(context)
+                                                              .size
+                                                              .width,
+                                                      child: ElevatedButton(
+                                                        onPressed: () {
+                                                          context.setLocale(
+                                                              const Locale(
+                                                                  'en', 'US'));
+                                                          Navigator.pop(
+                                                              context);
+                                                        },
+                                                        child: Text(
+                                                            'home.enUs'.tr()),
+                                                      ),
+                                                    ),
+                                                  ]),
+                                                ),
+                                              ],
+                                            );
+                                          }),
+                                    );
+                                  },
+                                ),
                               ])
                     ],
                   ),

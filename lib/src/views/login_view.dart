@@ -1,4 +1,4 @@
-// ignore_for_file: use_build_context_synchronously
+// ignore_for_file: use_build_context_synchronously, unnecessary_null_comparison
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -131,10 +131,12 @@ class _LoginViewState extends State<LoginView> {
 
   login() async {
     try {
-      await _auth
-          .signInWithEmailAndPassword(
-              email: usernameController.text, password: passwordController.text)
-          .then((value) => Navigator.of(context).pushReplacementNamed('/home'));
+      UserCredential userCredential = await _auth.signInWithEmailAndPassword(
+          email: usernameController.text, password: passwordController.text);
+
+      if (userCredential != null) {
+        Navigator.of(context).pushReplacementNamed('/home');
+      }
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         ScaffoldMessenger.of(context).showSnackBar(
