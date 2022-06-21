@@ -89,6 +89,12 @@ class _HomeViewState extends State<HomeView> {
                                                               .size
                                                               .width,
                                                       child: ElevatedButton(
+                                                        style: ButtonStyle(
+                                                          backgroundColor:
+                                                              MaterialStateProperty
+                                                                  .all(Colors
+                                                                      .black),
+                                                        ),
                                                         onPressed: () {
                                                           context.setLocale(
                                                               const Locale(
@@ -97,7 +103,10 @@ class _HomeViewState extends State<HomeView> {
                                                               context);
                                                         },
                                                         child: Text(
-                                                            'home.ptBr'.tr()),
+                                                            'home.ptBr'.tr(),
+                                                            style: const TextStyle(
+                                                                color: Color(
+                                                                    0xffaff7ad))),
                                                       ),
                                                     ),
                                                     const SizedBox(width: 20),
@@ -107,6 +116,12 @@ class _HomeViewState extends State<HomeView> {
                                                               .size
                                                               .width,
                                                       child: ElevatedButton(
+                                                        style: ButtonStyle(
+                                                          backgroundColor:
+                                                              MaterialStateProperty
+                                                                  .all(Colors
+                                                                      .black),
+                                                        ),
                                                         onPressed: () {
                                                           context.setLocale(
                                                               const Locale(
@@ -115,7 +130,10 @@ class _HomeViewState extends State<HomeView> {
                                                               context);
                                                         },
                                                         child: Text(
-                                                            'home.enUs'.tr()),
+                                                            'home.enUs'.tr(),
+                                                            style: const TextStyle(
+                                                                color: Color(
+                                                                    0xffaff7ad))),
                                                       ),
                                                     ),
                                                   ]),
