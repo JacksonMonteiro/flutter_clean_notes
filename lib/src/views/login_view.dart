@@ -1,9 +1,8 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:notes_app/src/views/note_view.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({Key? key}) : super(key: key);
@@ -132,12 +131,10 @@ class _LoginViewState extends State<LoginView> {
 
   login() async {
     try {
-      UserCredential userCredential = await _auth.signInWithEmailAndPassword(
-          email: usernameController.text, password: passwordController.text);
-
-      if (userCredential != null) {
-        Navigator.of(context).pushReplacementNamed('/home');
-      }
+      await _auth
+          .signInWithEmailAndPassword(
+              email: usernameController.text, password: passwordController.text)
+          .then((value) => Navigator.of(context).pushReplacementNamed('/home'));
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         ScaffoldMessenger.of(context).showSnackBar(

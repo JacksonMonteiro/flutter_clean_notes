@@ -1,8 +1,6 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:notes_app/src/views/note_view.dart';
 
 class RegisterView extends StatefulWidget {
   const RegisterView({Key? key}) : super(key: key);
@@ -29,9 +27,9 @@ class _RegisterViewState extends State<RegisterView> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
-                    'Olá! Vejo que é novo por aqui. Para usar o App, basta criar uma conta, e pronto, já poderá começar a registrar seus pensamentos de maneira simples',
-                    style: TextStyle(
+                  Text(
+                    'register.title'.tr(),
+                    style: const TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.bold,
                     ),
@@ -42,16 +40,16 @@ class _RegisterViewState extends State<RegisterView> {
                   TextField(
                     controller: usernameController,
                     cursorColor: const Color(0xffaff7ad),
-                    decoration: const InputDecoration(
-                      focusedBorder: OutlineInputBorder(
+                    decoration: InputDecoration(
+                      focusedBorder: const OutlineInputBorder(
                         borderSide: BorderSide(color: Color(0xffaff7ad)),
                         borderRadius: BorderRadius.all(Radius.circular(48)),
                       ),
-                      border: OutlineInputBorder(
+                      border: const OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.black),
                         borderRadius: BorderRadius.all(Radius.circular(48)),
                       ),
-                      hintText: 'E-mail',
+                      hintText: 'login.email'.tr(),
                     ),
                   ),
                   const SizedBox(
@@ -59,16 +57,16 @@ class _RegisterViewState extends State<RegisterView> {
                   ),
                   TextField(
                     cursorColor: const Color(0xffaff7ad),
-                    decoration: const InputDecoration(
-                      focusedBorder: OutlineInputBorder(
+                    decoration: InputDecoration(
+                      focusedBorder: const OutlineInputBorder(
                         borderSide: BorderSide(color: Color(0xffaff7ad)),
                         borderRadius: BorderRadius.all(Radius.circular(48)),
                       ),
-                      border: OutlineInputBorder(
+                      border: const OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.black),
                         borderRadius: BorderRadius.all(Radius.circular(48)),
                       ),
-                      hintText: 'Senha',
+                      hintText: 'login.password'.tr(),
                     ),
                     controller: passwordController,
                     obscureText: true,
@@ -83,10 +81,10 @@ class _RegisterViewState extends State<RegisterView> {
                             MaterialStateProperty.all(Colors.black)),
                     child: SizedBox(
                         width: MediaQuery.of(context).size.width,
-                        child: const Padding(
-                          padding: EdgeInsets.symmetric(vertical: 12),
-                          child: Text('Criar conta',
-                              style: TextStyle(
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 12),
+                          child: Text('login.register-btn'.tr(),
+                              style: const TextStyle(
                                 color: Color(0xffaff7ad),
                                 fontSize: 18,
                               ),
@@ -112,10 +110,10 @@ class _RegisterViewState extends State<RegisterView> {
                     ),
                     child: SizedBox(
                         width: MediaQuery.of(context).size.width,
-                        child: const Padding(
-                          padding: EdgeInsets.symmetric(vertical: 12),
-                          child: Text('Voltar',
-                              style: TextStyle(
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 12),
+                          child: Text('register.back-btn'.tr(),
+                              style: const TextStyle(
                                 color: Colors.black,
                                 fontSize: 18,
                               ),
@@ -131,14 +129,10 @@ class _RegisterViewState extends State<RegisterView> {
 
   register() async {
     try {
-      UserCredential userCredential =
-          await _auth.createUserWithEmailAndPassword(
-              email: usernameController.text,
-              password: passwordController.text);
-
-      if (userCredential != null) {
-        Navigator.of(context).pop();
-      }
+      await _auth
+          .createUserWithEmailAndPassword(
+              email: usernameController.text, password: passwordController.text)
+          .then((value) => Navigator.of(context).pop());
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         ScaffoldMessenger.of(context).showSnackBar(

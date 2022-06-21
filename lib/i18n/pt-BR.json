@@ -5,5 +5,19 @@
         "password": "Senha",
         "login-btn": "Login",
         "register-btn": "Criar conta"
+    },
+
+    "register": {
+        "title": "Olá! Vejo que é novo por aqui. Para usar o App, basta criar uma conta, e pronto, já poderá começar a registrar seus pensamentos de maneira simples",
+        "back-btn": "Voltar"
+    },
+
+    "home": {
+        "exit": "Sair"
+    },
+
+    "note": {
+        "title": "Título",
+        "message": "Escreva seus pensamentos..."
     }
 }

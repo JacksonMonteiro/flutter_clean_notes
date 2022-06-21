@@ -79,15 +79,15 @@ class _NoteViewState extends State<NoteView> {
                   color: Color(0xffaff7ad),
                   fontSize: 24,
                   fontWeight: FontWeight.normal),
-              decoration: const InputDecoration(
-                hintText: 'Title',
-                border: UnderlineInputBorder(
+              decoration: InputDecoration(
+                hintText: 'note.title'.tr(),
+                border: const UnderlineInputBorder(
                     borderSide: BorderSide(color: Colors.white70)),
-                focusedBorder: UnderlineInputBorder(
+                focusedBorder: const UnderlineInputBorder(
                     borderSide: BorderSide(color: Colors.white70)),
-                enabledBorder: UnderlineInputBorder(
+                enabledBorder: const UnderlineInputBorder(
                     borderSide: BorderSide(color: Colors.white70)),
-                hintStyle: TextStyle(
+                hintStyle: const TextStyle(
                   fontSize: 24,
                   color: Colors.white54,
                   fontWeight: FontWeight.normal,
@@ -105,10 +105,10 @@ class _NoteViewState extends State<NoteView> {
               cursorColor: Colors.white,
               keyboardType: TextInputType.multiline,
               maxLines: null,
-              decoration: const InputDecoration(
+              decoration: InputDecoration(
                   border: InputBorder.none,
-                  hintText: 'Write down your thoughts...',
-                  hintStyle: TextStyle(
+                  hintText: 'note.message'.tr(),
+                  hintStyle: const TextStyle(
                       fontSize: 16,
                       color: Colors.white54,
                       fontWeight: FontWeight.normal)),

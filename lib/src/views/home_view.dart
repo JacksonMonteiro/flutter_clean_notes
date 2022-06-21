@@ -1,7 +1,9 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:notes_app/src/views/note_view.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({Key? key}) : super(key: key);
@@ -36,58 +38,97 @@ class _HomeViewState extends State<HomeView> {
           stream: _notes.snapshots(),
           builder: (context, AsyncSnapshot<QuerySnapshot> streamSnapshot) {
             if (streamSnapshot.hasData) {
-              return ListView.builder(
-                itemCount: streamSnapshot.data!.docs.length,
-                itemBuilder: (context, index) {
-                  final DocumentSnapshot documentSnapshot =
-                      streamSnapshot.data!.docs[index];
+              return Column(
+                children: [
+                  const SizedBox(
+                    height: 36,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      PopupMenuButton(
+                          itemBuilder: (context) => [
+                                PopupMenuItem(
+                                  onTap: () async {
+                                    await _auth.signOut().then((value) =>
+                                        Navigator.of(context)
+                                            .pushReplacementNamed('/'));
+                                  },
+                                  value: 0,
+                                  child: Text(
+                                    'home.exit'.tr(),
+                                    style: const TextStyle(
+                                      color: Colors.red,
+                                    ),
+                                  ),
+                                )
+                              ])
+                    ],
+                  ),
+                  Expanded(
+                    child: SizedBox(
+                      width: MediaQuery.of(context).size.width,
+                      height: MediaQuery.of(context).size.height,
+                      child: ListView.builder(
+                        itemCount: streamSnapshot.data!.docs.length,
+                        scrollDirection: Axis.vertical,
+                        shrinkWrap: true,
+                        itemBuilder: (context, index) {
+                          final DocumentSnapshot documentSnapshot =
+                              streamSnapshot.data!.docs[index];
 
-                  var date = DateTime.fromMillisecondsSinceEpoch(
-                      documentSnapshot['date'].seconds * 1000);
+                          var date = DateTime.fromMillisecondsSinceEpoch(
+                              documentSnapshot['date'].seconds * 1000);
 
-                  return GestureDetector(
-                    onTap: () => _update(documentSnapshot),
-                    child: Card(
-                      margin: const EdgeInsets.all(10),
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 12, vertical: 24),
-                        decoration: BoxDecoration(
-                          color: Colors.black,
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              documentSnapshot['title'],
-                              style: const TextStyle(
-                                  fontSize: 24,
-                                  fontWeight: FontWeight.w500,
-                                  color: Color(0xffaff7ad)),
-                            ),
-                            const SizedBox(
-                              height: 6,
-                            ),
-                            Text(
-                              documentSnapshot['content'],
-                              style: const TextStyle(color: Colors.white),
-                            ),
-                            const SizedBox(
-                              height: 6,
-                            ),
-                            Text(
-                              "${date.day}/${date.month}/${date.year}",
-                              style: const TextStyle(
-                                color: Colors.white60,
+                          return GestureDetector(
+                            onTap: () => _update(documentSnapshot),
+                            child: Card(
+                              margin: const EdgeInsets.all(10),
+                              child: Container(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 12, vertical: 24),
+                                decoration: BoxDecoration(
+                                  color: Colors.black,
+                                  borderRadius: BorderRadius.circular(12),
+                                ),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      documentSnapshot['title'],
+                                      style: const TextStyle(
+                                          fontSize: 24,
+                                          fontWeight: FontWeight.w500,
+                                          color: Color(0xffaff7ad)),
+                                    ),
+                                    const SizedBox(
+                                      height: 6,
+                                    ),
+                                    Text(
+                                      documentSnapshot['content'],
+                                      style:
+                                          const TextStyle(color: Colors.white),
+                                    ),
+                                    const SizedBox(
+                                      height: 6,
+                                    ),
+                                    Text(
+                                      "${date.day}/${date.month}/${date.year}",
+                                      style: const TextStyle(
+                                        color: Colors.white60,
+                                      ),
+                                    )
+                                  ],
+                                ),
                               ),
-                            )
-                          ],
-                        ),
+                            ),
+                          );
+                        },
                       ),
                     ),
-                  );
-                },
+                  ),
+                ],
               );
             }
 
@@ -196,15 +237,15 @@ class _HomeViewState extends State<HomeView> {
                       color: Color(0xffaff7ad),
                       fontSize: 24,
                       fontWeight: FontWeight.normal),
-                  decoration: const InputDecoration(
-                    hintText: 'Title',
-                    border: UnderlineInputBorder(
+                  decoration: InputDecoration(
+                    hintText: 'note.title'.tr(),
+                    border: const UnderlineInputBorder(
                         borderSide: BorderSide(color: Colors.white70)),
-                    focusedBorder: UnderlineInputBorder(
+                    focusedBorder: const UnderlineInputBorder(
                         borderSide: BorderSide(color: Colors.white70)),
-                    enabledBorder: UnderlineInputBorder(
+                    enabledBorder: const UnderlineInputBorder(
                         borderSide: BorderSide(color: Colors.white70)),
-                    hintStyle: TextStyle(
+                    hintStyle: const TextStyle(
                       fontSize: 24,
                       color: Colors.white54,
                       fontWeight: FontWeight.normal,
@@ -222,10 +263,10 @@ class _HomeViewState extends State<HomeView> {
                   cursorColor: Colors.white,
                   keyboardType: TextInputType.multiline,
                   maxLines: null,
-                  decoration: const InputDecoration(
+                  decoration: InputDecoration(
                       border: InputBorder.none,
-                      hintText: 'Write down your thoughts...',
-                      hintStyle: TextStyle(
+                      hintText: 'notes.message'.tr(),
+                      hintStyle: const TextStyle(
                           fontSize: 16,
                           color: Colors.white54,
                           fontWeight: FontWeight.normal)),

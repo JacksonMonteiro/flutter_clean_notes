@@ -1,0 +1,23 @@
+{
+    "login": {
+        "title": "Welcome to Clean Notes. Enter your data to continue",
+        "email": "Email",
+        "password": "Password",
+        "login-btn": "Login",
+        "register-btn": "Create account"
+    },
+
+    "register": {
+        "title": "Hello, I see you are new here. To use the App, just create an account, and you'll be able to start recording your thoughts in a simple way",
+        "back-btn": "Back"
+    },
+
+    "home": {
+        "exit": "Exit"
+    },
+
+    "note": {
+        "title": "Title",
+        "message": "Write down your thoughts..."
+    }
+}
