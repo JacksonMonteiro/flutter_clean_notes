@@ -4,7 +4,10 @@
         "email": "E-mail",
         "password": "Senha",
         "login-btn": "Login",
-        "register-btn": "Criar conta"
+        "register-btn": "Criar conta",
+        "emailNotFound": "E-mail não encontrado no sistema",
+        "passwordError": "Email ou senha incorretos",
+        "try-again": "Tentar novamente"
     },
 
     "register": {

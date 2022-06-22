@@ -1,10 +1,12 @@
-class NotesModel {
+// ignore_for_file: unnecessary_this, unnecessary_getters_setters
+
+class NoteModel {
   String? _userUid;
   String? _title;
   String? _content;
   String? _date;
 
-  NotesModel({String? userUid, String? title, String? content, String? date}) {
+  NoteModel({String? userUid, String? title, String? content, String? date}) {
     if (userUid != null) {
       this._userUid = userUid;
     }
@@ -28,7 +30,7 @@ class NotesModel {
   String? get date => _date;
   set date(String? date) => _date = date;
 
-  NotesModel.fromJson(Map<String, dynamic> json) {
+  NoteModel.fromJson(Map<String, dynamic> json) {
     _userUid = json['user_uid'];
     _title = json['title'];
     _content = json['content'];
@@ -36,7 +38,7 @@ class NotesModel {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['user_uid'] = this._userUid;
     data['title'] = this._title;
     data['content'] = this._content;
