@@ -22,7 +22,7 @@ class LoginPresenter {
   final state = ValueNotifier<LoginState>(LoginState.start);
   late final LoginViewContract contract;
 
-  TextEditingController usernameController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
   LoginPresenter(this.contract);
@@ -47,7 +47,7 @@ class LoginPresenter {
 
     try {
       UserCredential userCredential = await _auth.signInWithEmailAndPassword(
-          email: usernameController.text, password: passwordController.text);
+          email: emailController.text, password: passwordController.text);
 
       if (userCredential != null) {
         isLoading = false;

@@ -6,6 +6,9 @@
         "login-btn": "Login",
         "register-btn": "Criar conta",
         "emailNotFound": "E-mail não encontrado no sistema",
+        "emptyEmail": "O E-mail não pode estar vazio",
+        "emptyPassword": "Sua senha não pode estar vazia",
+        "invalidEmail": "Digite um E-mail válido",
         "passwordError": "Email ou senha incorretos",
         "try-again": "Tentar novamente"
     },

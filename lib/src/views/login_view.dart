@@ -14,6 +14,11 @@ class LoginView extends StatefulWidget {
 class _LoginViewState extends State<LoginView> implements LoginViewContract {
   late LoginPresenter presenter;
 
+  // Validation variables
+  final _emailText = null;
+  final _passwordText = null;
+  bool isValid = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -52,7 +57,7 @@ class _LoginViewState extends State<LoginView> implements LoginViewContract {
                   height: 48,
                 ),
                 TextField(
-                  controller: presenter.usernameController,
+                  controller: presenter.emailController,
                   cursorColor: const Color(0xffaff7ad),
                   decoration: InputDecoration(
                     focusedBorder: const OutlineInputBorder(
@@ -64,7 +69,9 @@ class _LoginViewState extends State<LoginView> implements LoginViewContract {
                       borderRadius: BorderRadius.all(Radius.circular(48)),
                     ),
                     hintText: 'login.email'.tr(),
+                    errorText: _emailErrorText,
                   ),
+                  onChanged: (text) => setState(() => _emailText),
                 ),
                 const SizedBox(
                   height: 8,
@@ -72,23 +79,28 @@ class _LoginViewState extends State<LoginView> implements LoginViewContract {
                 TextField(
                   cursorColor: const Color(0xffaff7ad),
                   decoration: InputDecoration(
-                    focusedBorder: const OutlineInputBorder(
-                      borderSide: BorderSide(color: Color(0xffaff7ad)),
-                      borderRadius: BorderRadius.all(Radius.circular(48)),
-                    ),
-                    border: const OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.black),
-                      borderRadius: BorderRadius.all(Radius.circular(48)),
-                    ),
-                    hintText: 'login.password'.tr(),
-                  ),
+                      focusedBorder: const OutlineInputBorder(
+                        borderSide: BorderSide(color: Color(0xffaff7ad)),
+                        borderRadius: BorderRadius.all(Radius.circular(48)),
+                      ),
+                      border: const OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.black),
+                        borderRadius: BorderRadius.all(Radius.circular(48)),
+                      ),
+                      hintText: 'login.password'.tr(),
+                      errorText: _passwordErrorText),
                   controller: presenter.passwordController,
                   obscureText: true,
+                  onChanged: (text) => setState(() => _passwordText),
                 ),
                 const SizedBox(height: 24),
                 ElevatedButton(
                   onPressed: () {
-                    presenter.login();
+                    if (presenter.emailController.text.isNotEmpty &&
+                        presenter.passwordController.text.isNotEmpty &&
+                        isValid) {
+                      presenter.login();
+                    }
                   },
                   style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all(Colors.black)),
@@ -137,6 +149,32 @@ class _LoginViewState extends State<LoginView> implements LoginViewContract {
         ),
       ),
     );
+  }
+
+  String? get _emailErrorText {
+    final text = presenter.emailController.text;
+
+    if (text.isEmpty) {
+      return 'login.emptyEmail'.tr();
+    }
+
+    if (!text.contains('@')) {
+      return 'login.invalidEmail'.tr();
+    }
+
+    isValid = true;
+    return null;
+  }
+
+  String? get _passwordErrorText {
+    final text = presenter.passwordController.text;
+
+    if (text.isEmpty) {
+      return 'login.emptyPassword'.tr();
+    }
+
+    isValid = true;
+    return null;
   }
 
   @override
