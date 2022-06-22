@@ -15,7 +15,9 @@
 
     "register": {
         "title": "Olá! Vejo que é novo por aqui. Para usar o App, basta criar uma conta, e pronto, já poderá começar a registrar seus pensamentos de maneira simples",
-        "back-btn": "Voltar"
+        "back-btn": "Voltar",
+        "emailExists": "Usuário já cadastrado no sistema",
+        "weakPassword": "Senha fraca, por favor, crie uma senha mais forte e tente novamente"
     },
 
     "home": {
