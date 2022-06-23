@@ -1,5 +1,4 @@
 // ignore_for_file: use_build_context_synchronously, unnecessary_null_comparison
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -176,8 +175,14 @@ class _HomeViewState extends State<HomeView> implements HomeViewContract {
                                   documentSnapshot['date'].seconds * 1000);
 
                               return GestureDetector(
-                                onTap: () =>
-                                    _presenter.update(documentSnapshot),
+                                onTap: () {
+                                  _presenter.titleController.text =
+                                      documentSnapshot['title'];
+                                  _presenter.contentController.text =
+                                      documentSnapshot['content'];
+                                  _presenter.setDocId(documentSnapshot.id);
+                                  _presenter.state.value = HomeState.update;
+                                },
                                 child: Card(
                                   margin: const EdgeInsets.all(10),
                                   child: Container(
@@ -257,7 +262,7 @@ class _HomeViewState extends State<HomeView> implements HomeViewContract {
 
   @override
   success() {
-    Navigator.of(context).pop();
+    Navigator.of(context).pushNamedAndRemoveUntil('/home', (route) => false);
   }
 
   @override
@@ -285,5 +290,112 @@ class _HomeViewState extends State<HomeView> implements HomeViewContract {
   @override
   exit() {
     Navigator.of(context).pushNamedAndRemoveUntil('/', (route) => false);
+  }
+
+  @override
+  updateView([DocumentSnapshot? documentSnapshot]) {
+    return Container(
+      width: MediaQuery.of(context).size.width,
+      height: MediaQuery.of(context).size.height,
+      color: Colors.black,
+      child: Padding(
+        padding: const EdgeInsets.all(32),
+        child: Column(children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Container(
+                decoration: BoxDecoration(
+                  color: Colors.white38,
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: IconButton(
+                  onPressed: () {
+                    _presenter.state.value = HomeState.start;
+                  },
+                  icon: const Icon(Icons.arrow_back),
+                  color: Colors.white,
+                ),
+              ),
+              Row(
+                children: [
+                  Container(
+                    decoration: BoxDecoration(
+                      color: Colors.white38,
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: IconButton(
+                      onPressed: () async {
+                        _presenter.update();
+                      },
+                      icon: const Icon(Icons.edit),
+                      color: Colors.white,
+                    ),
+                  ),
+                  const SizedBox(width: 8),
+                  Container(
+                    decoration: BoxDecoration(
+                      color: Colors.white38,
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: IconButton(
+                      onPressed: () async {
+                        _presenter.delete();
+                      },
+                      icon: const Icon(Icons.delete),
+                      color: Colors.white,
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+          const SizedBox(
+            height: 24,
+          ),
+          TextField(
+            autofocus: true,
+            cursorColor: const Color(0xFFaff7ad),
+            style: const TextStyle(
+                color: Color(0xffaff7ad),
+                fontSize: 24,
+                fontWeight: FontWeight.normal),
+            decoration: InputDecoration(
+              hintText: 'note.title'.tr(),
+              border: const UnderlineInputBorder(
+                  borderSide: BorderSide(color: Colors.white70)),
+              focusedBorder: const UnderlineInputBorder(
+                  borderSide: BorderSide(color: Colors.white70)),
+              enabledBorder: const UnderlineInputBorder(
+                  borderSide: BorderSide(color: Colors.white70)),
+              hintStyle: const TextStyle(
+                fontSize: 24,
+                color: Colors.white54,
+                fontWeight: FontWeight.normal,
+              ),
+            ),
+            controller: _presenter.titleController,
+          ),
+          TextField(
+            controller: _presenter.contentController,
+            style: const TextStyle(
+              color: Colors.white,
+              fontSize: 16,
+              fontWeight: FontWeight.normal,
+            ),
+            cursorColor: Colors.white,
+            keyboardType: TextInputType.multiline,
+            maxLines: null,
+            decoration: InputDecoration(
+                border: InputBorder.none,
+                hintText: 'note.message'.tr(),
+                hintStyle: const TextStyle(
+                    fontSize: 16,
+                    color: Colors.white54,
+                    fontWeight: FontWeight.normal)),
+          )
+        ]),
+      ),
+    );
   }
 }

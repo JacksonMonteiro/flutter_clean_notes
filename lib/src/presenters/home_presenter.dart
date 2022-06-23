@@ -9,6 +9,7 @@ abstract class HomeViewContract {
   start();
   loading();
   success();
+  updateView();
   error();
   isLoadingChange();
   exit();
@@ -20,8 +21,9 @@ class HomePresenter {
       FirebaseFirestore.instance.collection('notes');
   late Query notes;
 
-  bool result = false;
   bool isLoading = false;
+
+  var docId;
 
   final state = ValueNotifier<HomeState>(HomeState.start);
   late final HomeViewContract contract;
@@ -39,16 +41,23 @@ class HomePresenter {
         return contract.loading();
       case HomeState.error:
         return contract.error();
+      case HomeState.update:
+        return contract.updateView();
     }
   }
 
-  update([DocumentSnapshot? documentSnapshot]) async {
+  setDocId(id) {
+    docId = id;
+  }
+
+  getDocId() {
+    return docId;
+  }
+
+  update() async {
     state.value = HomeState.loading;
     isLoading = true;
     contract.isLoadingChange();
-
-    titleController.text = documentSnapshot!['title'];
-    contentController.text = documentSnapshot['content'];
 
     String title = titleController.text;
     String note = contentController.text;
@@ -56,13 +65,28 @@ class HomePresenter {
 
     try {
       await noteRef
-          .doc(documentSnapshot.id)
+          .doc(getDocId())
           .update({"title": title, "content": note, "date": date});
 
       isLoading = false;
       contract.isLoadingChange();
       contract.success();
     } on FirebaseAuthException {
+      state.value = HomeState.error;
+    }
+  }
+
+  delete() async {
+    state.value = HomeState.loading;
+    isLoading = true;
+    contract.isLoadingChange();
+
+    try {
+      await noteRef.doc(getDocId()).delete();
+      isLoading = false;
+      contract.isLoadingChange();
+      contract.success();
+    } catch (e) {
       state.value = HomeState.error;
     }
   }
@@ -80,4 +104,4 @@ class HomePresenter {
   }
 }
 
-enum HomeState { start, loading, error }
+enum HomeState { start, loading, error, update }

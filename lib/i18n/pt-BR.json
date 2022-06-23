@@ -31,6 +31,7 @@
 
     "note": {
         "title": "Título",
-        "message": "Escreva seus pensamentos..."
+        "message": "Escreva seus pensamentos...",
+        "error": "Erro ao adicionar nota"
     }
 }
