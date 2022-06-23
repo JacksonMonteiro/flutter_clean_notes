@@ -21,6 +21,7 @@
     },
 
     "home": {
+        "notesError": "Você não tem notas salvas",
         "exit": "Sair",
         "switch-lang": "Trocar Idioma",
         "choose-lang": "Escolha seu idioma",
