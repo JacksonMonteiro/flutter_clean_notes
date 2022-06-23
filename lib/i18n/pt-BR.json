@@ -4,15 +4,24 @@
         "email": "E-mail",
         "password": "Senha",
         "login-btn": "Login",
-        "register-btn": "Criar conta"
+        "register-btn": "Criar conta",
+        "emailNotFound": "E-mail não encontrado no sistema",
+        "emptyEmail": "O E-mail não pode estar vazio",
+        "emptyPassword": "Sua senha não pode estar vazia",
+        "invalidEmail": "Digite um E-mail válido",
+        "passwordError": "Email ou senha incorretos",
+        "try-again": "Tentar novamente"
     },
 
     "register": {
         "title": "Olá! Vejo que é novo por aqui. Para usar o App, basta criar uma conta, e pronto, já poderá começar a registrar seus pensamentos de maneira simples",
-        "back-btn": "Voltar"
+        "back-btn": "Voltar",
+        "emailExists": "Usuário já cadastrado no sistema",
+        "weakPassword": "Senha fraca, por favor, crie uma senha mais forte e tente novamente"
     },
 
     "home": {
+        "notesError": "Você não tem notas salvas",
         "exit": "Sair",
         "switch-lang": "Trocar Idioma",
         "choose-lang": "Escolha seu idioma",
@@ -22,6 +31,7 @@
 
     "note": {
         "title": "Título",
-        "message": "Escreva seus pensamentos..."
+        "message": "Escreva seus pensamentos...",
+        "error": "Erro ao adicionar nota"
     }
 }
