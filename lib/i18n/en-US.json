@@ -4,15 +4,24 @@
         "email": "Email",
         "password": "Password",
         "login-btn": "Login",
-        "register-btn": "Create account"
+        "register-btn": "Create account",
+        "emailNotFound": "E-mail not found in the system",
+        "emptyEmail": "E-mail cannot be empty",
+        "emptyPassword": "Your password cannot be empty",
+        "invalidEmail": "Enter a valid E-mail",
+        "passwordError": "Incorrect email or password",
+        "try-again": "Try again"
     },
 
     "register": {
         "title": "Hello, I see you are new here. To use the App, just create an account, and you'll be able to start recording your thoughts in a simple way",
-        "back-btn": "Back"
+        "back-btn": "Back",
+        "emailExists": "User already registered in the system",
+        "weakPassword": "Weak password, please create a stronger password and try again"
     },
 
     "home": {
+        "notesError": "You have no saved notes",
         "exit": "Exit",
         "switch-lang": "Switch Language",
         "choose-lang": "Choose your language",
@@ -22,6 +31,7 @@
 
     "note": {
         "title": "Title",
-        "message": "Write down your thoughts..."
+        "message": "Write down your thoughts...",
+        "error": "Error when adding note"
     }
 }
